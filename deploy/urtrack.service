@@ -1,0 +1,25 @@
+[Unit]
+Description=UrTrack - Home-Tailnet Server Based Project Tracker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=urtrack
+Group=urtrack
+WorkingDirectory=/opt/urtrack/backend
+
+EnvironmentFile=-/opt/urtrack/deploy/urtrack.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPATH=/opt/urtrack/backend
+
+ExecStart=/opt/urtrack/backend/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+Restart=always
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
