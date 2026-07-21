@@ -13,6 +13,17 @@ A lightweight, self-hosted project tracker designed for home-tailnet servers. Tr
 - **Q&A** — ask natural-language questions about your data
 - **Settings** — backup config, export data, manage tags
 
+## Screenshots
+
+![Dashboard — overview of organizations and project progress](docs/dashboard.png)
+*Dashboard — overview of organizations and project progress*
+
+![Calendar — monthly view with tasks and events](docs/calendar.png)
+*Calendar — monthly view with tasks and events*
+
+![Q&A — natural-language question answering](docs/qna.png)
+*Q&A — natural-language question answering*
+
 ## Tech Stack
 
 | Layer     | Technology                              |
@@ -46,18 +57,29 @@ After setup, the app runs at `http://<server-ip>:8000`.
 
 ### Development
 
-```bash
-# Backend
+```powershell
+# 1. Backend
 cd backend
-python3 -m venv venv
-source venv/bin/activate
+python -m venv venv
+.\venv\Scripts\Activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload        # http://localhost:8000
 
-# Frontend
+# 2. Frontend (terminal terpisah)
 cd frontend
 npm install
-npm run dev
+npm run dev                          # http://localhost:5173
+```
+
+> Jika error `ExecutionPolicy` saat Activate, jalankan `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` dulu.
+> Frontend dev server otomatis memproksi `/api` ke `localhost:8000`.
+
+### Build Production
+
+```powershell
+cd frontend
+npm run build          # output di frontend\dist\
+npx vite preview       # preview build lokal
 ```
 
 ## Project Layout
